@@ -63,7 +63,7 @@ public class Camino {
 		// Seteo distancia en origen
 		this.origen.setH(this.destino.getUbicacion());
 
-		// empiezo a agregar desde origen
+		// Empiezo a agregar desde origen
 		agregarAListaNodos(this.origen);
 
 		// Agrego a lista 2 el origen
@@ -75,6 +75,7 @@ public class Camino {
 		Nodo nodo = this.destino;
 		List<Nodo> camino = new ArrayList<Nodo>();
 		
+		// Recorro mientras que que el antecesor sea distinto de nulo
 		while (nodo.getAntecesor() != null) {
 			camino.add(nodo);
 			nodo = nodo.getAntecesor();
@@ -83,6 +84,7 @@ public class Camino {
 	}
 
 	/**
+	 * Dibujar Camino
 	 * 
 	 * @param cmc
 	 * @return DibujoTDA
@@ -100,6 +102,7 @@ public class Camino {
 	}
 
 	/**
+	 * Agregar a la Lista de Nodos
 	 * 
 	 * @param antecesor
 	 */
