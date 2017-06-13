@@ -12,17 +12,30 @@ public class Nodo implements Comparable<Nodo> {
 	private int g;
 	private int h;
 
-	public Nodo(Punto ubicacion) {                  // contructor para origen y destino
+	/**
+	 * Constructor para el Origen y Destino
+	 * @param Punto
+	 */
+	public Nodo (Punto ubicacion) {
 		this.ubicacion = ubicacion;
 		this.antecesor = null;
 		this.g = 0;
 		this.h = 0;
 	}
 
-	public Nodo(Punto ubicacion, Nodo antecesor) {  //constructor para los otros nodos
+	/**
+	 * Constructor para los otros nodos
+	 * @param Punto
+	 * @param Nodo
+	 */
+	public Nodo (Punto ubicacion, Nodo antecesor) {
 		this.ubicacion = ubicacion;
-		this.antecesor = antecesor;        
-		this.g = antecesor.g;                      //guardo el costo del antecesor
+		this.antecesor = antecesor;
+		
+		/**
+		 * Guardamos el costo del antecesor
+		 */
+		this.g = antecesor.g;
 	}
 
 	public Punto getUbicacion() {
@@ -58,39 +71,59 @@ public class Nodo implements Comparable<Nodo> {
 	}
 
 	public double obtenerF() {
-		double f = 0;
-		f = this.g + this.h;
-		return f;
+		return (double) this.g + this.h;
 	}
 
-	public boolean esMismoNodo(Nodo n) {                            // Comparo posiciones 
+	/**
+	 * Comparamos posiciones
+	 * 
+	 * @param Nodo
+	 * @return boolean
+	 */
+	public boolean esMismoNodo(Nodo n) { 
 		return this.obtenerPunto().equals(n.obtenerPunto());
 	}
 	
+	/**
+	 * Obtener Punto
+	 * @return String
+	 */
 	public String obtenerPunto() {
 		return String.valueOf(this.ubicacion.getX()) + ";" + String.valueOf(this.ubicacion.getY());
 	}
 
+	/**
+	 * Obtenemos puntos adyacentes
+	 * 
+	 * @return Set<Punto>
+	 */
 	public Set<Punto> obtenerAdyacentes() {
 		Set<Punto> adyacentes = new HashSet<Punto>();
 		int x1,x2,y1,y2;
 
-		// Si la ubicacion es mayor a cero, hay uno a la izquierda y lo guarda
+		/**
+		 * Si la ubicación es mayor a cero, hay uno
+		 * a la izquierda entonces lo guardo
+		 */
 		if (this.getUbicacion().getX() > 0) {
 			x1 = this.getUbicacion().getX() - 1;
 		} else {
-			// el x del nodo
 			x1 = 0;
 		}
-		// Si la ubicacion es menor al maximo menos uno, hay uno a la derecha y
-		// lo guarda
+		
+		/**
+		 * Si la ubicacion es menor al maximo menos uno, 
+		 * hay uno a la derecha y lo guardo
+		 */
 		if (this.getUbicacion().getX() < DibujoTDA.ALTO - 1) {
 			x2 = this.getUbicacion().getX() + 1;
 		} else {
-			// El x del nodo
 			x2 = DibujoTDA.ALTO - 1;
 		}
-		//lo mismo pero para Y
+		/**
+		 * Si la ubicación es mayor a cero, hay uno
+		 * arriba entonces lo guardo
+		 */
 		if (this.getUbicacion().getY() > 0) {
 			y1 = this.getUbicacion().getY() - 1;
 		} else {
@@ -106,7 +139,10 @@ public class Nodo implements Comparable<Nodo> {
 		for (int f = x1; f <= x2; f++) {
 			for (int c = y1; c <= y2; c++) {
 				Punto punto = new Punto(f, c);
-				// Validar que no exista el punto en el conjunto
+				
+				/**
+				 * Validar que no exista el punto en el conjunto
+				 */
 				if ((!punto.esIgual(this.getUbicacion()))) {
 					adyacentes.add(punto);
 				}
@@ -125,20 +161,35 @@ public class Nodo implements Comparable<Nodo> {
 		
 	}
 
+	/**
+	 * Comparar Nodo
+	 * 
+	 */
 	public int compareTo(Nodo nodo) {
-		// TODO Auto-generated method stub
-		if (this.obtenerF() < nodo.obtenerF()) {                                  // Devuelve -1 si el F o el H del nodo es menor al que se compara
+		/**
+		 * Devuelve -1 si el F o el H del nodo es menor al que se compara
+		 */
+		if (this.obtenerF() < nodo.obtenerF()) {
 			return -1;
 		}
-		if (this.obtenerF() > nodo.obtenerF()) {                                 // 1 si el F o el H es mayor al que se compara
+		/**
+		 * Devuelve 1 si el F o el H es mayor al que se compara
+		 */
+		if (this.obtenerF() > nodo.obtenerF()) {
 			return 1;
 		}
+		
 		if (this.h < nodo.h) {
 			return -1;
 		}
+		
 		if (this.h > nodo.h) {
 			return 1;
 		}
-		return obtenerPunto().compareTo(nodo.obtenerPunto());                      // elige el de h(costo) menor
+		
+		/**
+		 * Elige el de h(costo) menor
+		 */
+		return obtenerPunto().compareTo(nodo.obtenerPunto());
 	}
 }

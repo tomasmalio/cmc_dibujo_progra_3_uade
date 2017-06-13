@@ -1,6 +1,7 @@
 package mapa;
 
 import grafico.Area;
+import grafico.DibujoTDA;
 import grafico.Punto;
 
 public class Mapa {
@@ -8,7 +9,7 @@ public class Mapa {
 	private int[][] grilla;
 
 	public Mapa() {
-		this.grilla = new int[400][400];
+		this.grilla = new int[DibujoTDA.LARGO][DibujoTDA.ALTO];
 	}
 
 	public int[][] getGrilla() {
@@ -31,9 +32,9 @@ public class Mapa {
 	}
 
 	public boolean puntoValido(Punto p) {
-		if ((p.getX() < 0) || (p.getX() >= 399))
+		if ((p.getX() < 0) || (p.getX() >= DibujoTDA.LARGO))
 			return false;
-		if ((p.getY() < 0) || (p.getY() >= 399))
+		if ((p.getY() < 0) || (p.getY() >= DibujoTDA.ALTO))
 			return false;
 		if (this.grilla[p.getX()][p.getY()] >= VALOR_MAXIMO) {
 			return false;

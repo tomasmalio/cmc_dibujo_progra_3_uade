@@ -38,7 +38,7 @@ public class Inicio {
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-            	frame = new JFrame("TPO Programación III");
+            	frame = new JFrame("TPO Programación III - Profesor: Julio Cancela");
             	components();
                 show();
             }

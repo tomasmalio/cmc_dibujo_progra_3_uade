@@ -24,10 +24,10 @@ public class Camino {
 	private SortedSet<String> recorridos;
 
 	public Camino(Mapa mapa) {
-		this.mapa = mapa;
-		this.listaNodos = new TreeSet<Nodo>();
-		this.listaOptima = new TreeSet<Nodo>();
-		this.recorridos = new TreeSet<String>();
+		this.mapa 			= mapa;
+		this.listaNodos 	= new TreeSet<Nodo>();
+		this.listaOptima 	= new TreeSet<Nodo>();
+		this.recorridos 	= new TreeSet<String>();
 	}
 
 	public Mapa getMapa() {
@@ -58,46 +58,86 @@ public class Camino {
 		this.destino = new Nodo(punto);
 	}
 
+	/**
+	 * Implementación del Algoritmo
+	 * 
+	 * @return DibujoTDA
+	 */
 	public DibujoTDA buscarCamino() {
 
-		// Seteo distancia en origen
+		/**
+		 *  Seteo distancia en origen
+		 */
 		this.origen.setH(this.destino.getUbicacion());
 
-		// Empiezo a agregar desde origen
+		/**
+		 * Comenzamos agregando desde el origen
+		 * a una lista de nodos
+		 */
 		agregarAListaNodos(this.origen);
 
-		// Agrego a lista 2 el origen
+		/**
+		 * Agregamos a la lista 2 el origen
+		 */
 		this.listaOptima.add(this.origen);
 
-		// Agrego a recorrido el origen
+		/**
+		 * Agrego al recorrido el origen obteniendo los puntos
+		 */
 		this.recorridos.add(this.origen.obtenerPunto());
 
 		Nodo nodo = this.destino;
 		List<Nodo> camino = new ArrayList<Nodo>();
 		
-		// Recorro mientras que que el antecesor sea distinto de nulo
+		/**
+		 * Recorro mientras que el antecesor sea 
+		 * distinto de nulo
+		 */
 		while (nodo.getAntecesor() != null) {
 			camino.add(nodo);
 			nodo = nodo.getAntecesor();
 		}
+		
+		/**
+		 * Devolvemos el camino
+		 */
 		return dibujarCamino(camino);
 	}
 
 	/**
 	 * Dibujar Camino
 	 * 
-	 * @param cmc
+	 * @param List<Nodo> cmc
 	 * @return DibujoTDA
 	 */
 	private DibujoTDA dibujarCamino(List<Nodo> cmc) {
+		
 		int[][] xy = new int[2][cmc.size()];
 		int index = 0;
-		for (Nodo n : cmc) {
-			xy[0][index] = n.getUbicacion().getX();
-			xy[1][index] = n.getUbicacion().getY();
+		
+		for (Nodo c : cmc) {
+			xy[0][index] = c.getUbicacion().getX();
+			xy[1][index] = c.getUbicacion().getY();
 			index++;
 		}
+		
+		/**
+		 * Recorremos xy para poder listar los puntos del camino
+		 * de mínimo costo
+		 */
+		index--;
+		System.out.println("========================");
+		System.out.println("Listado de puntos");
+		System.out.println("========================");
+		for (int i = index; (i > 0) && (i <= index); i--) {
+			System.out.println("Punto número: " + i + " [x: "+ xy[0][i] + " | y:" + xy[1][i] + "]");
+		}
+		System.out.println("Fin del recorrido");
+		System.out.println("========================");
+		
+		
 		Inicio.camino = new Camino(Inicio.mapa);
+		
 		return new PoliLinea(xy[0], xy[1], Color.red);
 	}
 
@@ -107,43 +147,62 @@ public class Camino {
 	 * @param antecesor
 	 */
 	private void agregarAListaNodos(Nodo antecesor) {
+		
 		while (!antecesor.esMismoNodo(this.destino)) {
-			// Adyacentes del antecesor
+			/**
+			 * Adyacentes del antecesor
+			 */
 			Set<Punto> adyacentes = antecesor.obtenerAdyacentes();
+			
 			for (Punto p : adyacentes) {
 				Nodo nodo = new Nodo(p, antecesor);
-				// comparo por si lo recorri antes
+				/**
+				 * Comparo por si lo recorrí antes
+				 */
 				if (!recorridos.contains(nodo.obtenerPunto()) && mapa.puntoValido(nodo.getUbicacion())) {	
 					int k;
-					if(nodo.esDiagonal()){
-						k=144;
-					}else{
-						k=100;
+					if (nodo.esDiagonal()) {
+						k = 144;
+					} else {
+						k = 100;
 					}
-					//Se suma el costo del antecesor con el punto actual
+					/** 
+					 * Se suma el costo del antecesor con el punto actual
+					 */
 					nodo.setG(nodo.getG() + (mapa.getDensidad(nodo.getUbicacion())+1) * k);  
-					//seteo la distancia
+					
+					/**
+					 * Seteamos la distancia
+					 */
 					nodo.setH(this.destino.getUbicacion());
 					this.listaNodos.add(nodo);
 					this.recorridos.add(nodo.obtenerPunto());
 				}
 			}
+			
 			/**
-			 * Si no hay elementos en la primera lista, camino no encontrado
+			 * Si no hay elementos en la primera lista, 
+			 * camino no encontrado
 			 */
 			if (this.listaNodos.size() == 0) {
 				Inicio.camino = new Camino(Inicio.mapa);
 				JOptionPane.showMessageDialog(null, "Camino no encontrado");
 				return;
 			}
-			// Asigno el nodo anterior para seguir avanzando
+			
+			/**
+			 * Asigno el nodo anterior para seguir avanzando
+			 */
 			antecesor = nodoOptimoAListaNodos();
 		}
+		
 		this.destino = antecesor;
 	}
 
 	/**
-	 * Agarra el primero de la listaNodos y lo agrega a la cerrada
+	 * Agarra el primero de la listaNodos y 
+	 * lo agrega a la cerrada
+	 * 
 	 * @return Nodo
 	 */
 	private Nodo nodoOptimoAListaNodos() {
