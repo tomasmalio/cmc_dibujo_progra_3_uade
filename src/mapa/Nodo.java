@@ -86,6 +86,7 @@ public class Nodo implements Comparable<Nodo> {
 	
 	/**
 	 * Obtener Punto
+	 * 
 	 * @return String
 	 */
 	public String obtenerPunto() {
@@ -152,18 +153,23 @@ public class Nodo implements Comparable<Nodo> {
 		return adyacentes;
 	}
 	
+	/**
+	 * Es diagonal
+	 * @return boolean
+	 */
 	public boolean esDiagonal(){
 		int xAnt = antecesor.getUbicacion().getX();
 		int yAnt = antecesor.getUbicacion().getY();
-		if (xAnt != this.ubicacion.getX() && yAnt!= this.ubicacion.getY())
+		if (xAnt != this.ubicacion.getX() && yAnt!= this.ubicacion.getY()) {
 			return true;
+		}
 		return false;
 		
 	}
 
 	/**
 	 * Comparar Nodo
-	 * 
+	 * @return int
 	 */
 	public int compareTo(Nodo nodo) {
 		/**

@@ -130,11 +130,10 @@ public class Camino {
 		System.out.println("Listado de puntos");
 		System.out.println("========================");
 		for (int i = index; (i > 0) && (i <= index); i--) {
-			System.out.println("Punto número: " + i + " [x: "+ xy[0][i] + " | y:" + xy[1][i] + "]");
+			System.out.println(i + ") [x: "+ xy[0][i] + " | y:" + xy[1][i] + "]");
 		}
 		System.out.println("Fin del recorrido");
 		System.out.println("========================");
-		
 		
 		Inicio.camino = new Camino(Inicio.mapa);
 		
