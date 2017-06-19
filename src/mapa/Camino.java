@@ -16,12 +16,12 @@ import javax.swing.JOptionPane;
 import app.Inicio;
 
 public class Camino {
-	private Mapa mapa;
-	private Nodo origen;
-	private Nodo destino;
-	private SortedSet<Nodo> listaNodos;
-	private SortedSet<Nodo> listaOptima;
-	private SortedSet<String> recorridos;
+	private Mapa 				mapa;
+	private Nodo 				origen;
+	private Nodo 				destino;
+	private SortedSet<Nodo> 	listaNodos;
+	private SortedSet<Nodo> 	listaOptima;
+	private SortedSet<String> 	recorridos;
 
 	public Camino(Mapa mapa) {
 		this.mapa 			= mapa;
@@ -132,6 +132,7 @@ public class Camino {
 		for (int i = index; (i > 0) && (i <= index); i--) {
 			System.out.println(i + ") [x: "+ xy[0][i] + " | y:" + xy[1][i] + "]");
 		}
+		System.out.println("========================");
 		System.out.println("Fin del recorrido");
 		System.out.println("========================");
 		

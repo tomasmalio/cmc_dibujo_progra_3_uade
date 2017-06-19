@@ -164,7 +164,6 @@ public class Nodo implements Comparable<Nodo> {
 			return true;
 		}
 		return false;
-		
 	}
 
 	/**
@@ -194,7 +193,7 @@ public class Nodo implements Comparable<Nodo> {
 		}
 		
 		/**
-		 * Elige el de h(costo) menor
+		 * Elige el de h (costo) menor
 		 */
 		return obtenerPunto().compareTo(nodo.obtenerPunto());
 	}
