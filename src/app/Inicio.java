@@ -1,3 +1,11 @@
+/***************************************
+ * Trabajo Práctico - Progrmación III
+ * @teacher Julio Cancela
+ * 
+ * @author tomasmalio, sabrinacannuli
+ * @year 2017
+ * 
+ */
 package app;
 
 import javax.swing.*;
@@ -38,7 +46,7 @@ public class Inicio {
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-            	frame = new JFrame("TPO Programación III - Profesor: Julio Cancela");
+            	frame = new JFrame("TPO Programacion III - Profesor: Julio Cancela");
             	components();
                 show();
             }
